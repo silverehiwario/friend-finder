@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Forms</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+</head>
+
+<body>
+ <div class="container">
+      <div class="navbar-header bg-primary" >
+        <div class="d-inline-flex p-2 "></div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr8NqMVVs4EF88_wz_hDnIJE4wweaw-c-WVoqAUQRHqysz7-9p" id = "finder">
+      </div>
+      <div class="collapse navbar-collapse text-success " id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right ">
+          <li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+          <li><a href="/signup"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>SignUp</a></li>
+          <li><a href="/page"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Login</a></li>  
+          </ul>
+      </div>
+    </div>
+   
+   <div class="container" id = "men1">
+    
+   <div class="row">
+   
+        <div class="col-md-4 col-sm-12 col-xs-12" >
+          
+           <div class="row">
+           <div class="col-md-12">
+            <form>
+              <div class="form-group">
+              <label for="exampleInputNumber">GROUPS OF :</label>
+               <h4 id = "group"></h4>
+             </div>
+             <div class="form-group">
+                <label for="exampleInputEmail1">Group Number</label>
+                <input type="number" class="form-control" id="exampleInputNumber1" aria-describedby="numberHelp"   placeholder="4">
+                 </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">FrontEnd</label>
+                <input type="number" class="form-control" id="exampleInputNumber2" aria-describedby="numberHelp"   placeholder="4">
+                 </div>
+                
+              <div class="form-group">
+                <label for="exampleInputEmail1">BackEnd</label>
+                <input type="number" class="form-control" id="exampleInputNumber3" aria-describedby="numberHelp"   placeholder="4">
+                 </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Both</label>
+                <input type="number" class="form-control" id="exampleInputNumber4" aria-describedby="numberHelp"   placeholder="4">
+                 </div>
+                <button type="submit"  id = "look" class="btn btn-primary">Submit</button>
+            </form>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-8 col-sm-12 col-xs-12" >
+        <p>  GROUP </p> <h4 id = "show">   </h4>
+        <h4 id = "show1">   </h4>
+
+        <h4 id = "show2">   </h4>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+       </div>
+
+      
+
+    </div>
+  </div>
+<div class="container" id= "yoga">
+ 
+ <footer>
+ <h6 class= "text-center"> @ copyright 2017 Silver Ehiwario </h6>
+</footer>
+ </div>
+    
+</body>
+</html>
+
+<script type="text/javascript">
+    
+
+
+   $("#look").on("click", function(event) {
+      event.preventDefault();
+      // Here we grab the form elements
+      var newreq = {
+        GroupNum: parseInt($("#exampleInputNumber1").val().trim()),
+        FrontEnd:parseInt($("#exampleInputNumber2").val().trim()),
+        BackEnd:parseInt ($("#exampleInputNumber3").val().trim()),
+        Both: parseInt($("#exampleInputNumber4").val().trim()),
+        
+        };
+
+
+        //module.exports = newreq;
+         Total = (newreq.FrontEnd)+ (newreq.BackEnd)+(newreq.Both);
+
+         $("#group").html(Total);
+         $("#show").html(newreq.GroupNum);
+
+       
+       console.log(newreq);
+
+     /* $.post("/api/tasurvey", newreq,
+         function(req) {
+          // If a table is available... tell user they are booked.
+          if (req) {
+            console.log(req);
+           
+          }
+          // If a table is available... tell user they on the waiting list.
+          
+          
+          
+          
+          
+
+          });
+
+      */
+       
+    
+      function runTableQuery2() {
+      // Here we get the location of the root page.
+      // We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
+      var currentURL = window.location.origin;
+      // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
+      $.ajax({ url: currentURL + "/api/tasurvey", data: {newreq} , method: "POST" })
+      .done(function(datareq) {
+        // Here we are logging the URL so we have access to it for troubleshooting
+        
+        if (datareq) {
+          /*for (var i=0 ; i< datareq.length; i++){
+            console.log(datareq);
+            var row = $("<div>");
+           row.addClass("res");
+
+         row.append("<p id = name>" + datareq[i].Name + "</p>");
+           row.append('<button id="up">' + "YES" + '</button><button id="down">' + "NO" + '</button>');*/
+       for (var i = 0; i < datareq.length; i++) {
+          // Create the HTML Well (Section) and Add the table content for each reserved table
+          var tableSection = $("<div>");
+          tableSection.addClass("well");
+          tableSection.attr("id", "tableWell-" + i + 1);
+        $("#show1").append(tableSection);
+          var tableNumber = i + 1;
+          // Then display the remaining fields in the HTML (Section Name, Date, URL)
+          $("#tableWell-" + i + 1).append("<h2><span class='label label-primary'>" + tableNumber + "</span> | " + datareq[i].Name + "</h2>");
+
+
+
+
+          $("#exampleInputNumber2").val("");
+          $("#exampleInputNumber3").val("");
+          $("#exampleInputNumber4").val("");
+
+
+           
+               }
+
+         $("#show2").prepend('<button id="up">' + "YES" + '</button><button id="down">' + "NO" + '</button>');
+              
+
+             function hidden(){
+             $("#up").on("click", function(event) {
+         
+            $(".well").hide();
+
+             /* $("#show1").hide();
+              $("#down").hide();
+              $("#up").hide();
+              $("#show").hide();*/
+
+                 window.location.reload(true);
+
+               });
+                }
+
+                   hidden();
+
+            
+
+        }
+
+        });
+
+
+        
+
+
+
+    }
+    runTableQuery2(); 
+
+  });
+
+
+
+</script>
+      
+
+         
+          
+          
+
+          
+       
