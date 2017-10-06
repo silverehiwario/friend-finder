@@ -31,7 +31,7 @@ connection.connect(function(err) {
 var app = express();
 
 // Sets an initial port. We"ll use this later in our listener
-var PORT =  8080;
+var PORT = process.env.PORT || 8080;
 
 // BodyParser makes it possible for our server to interpret data sent to it.
 // The code below is pretty standard.
@@ -46,8 +46,8 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 // ================================================================================
 
-require("./apiRoutes")(app);
-require("./htmlRoutes")(app);
+require("./app/Routing/apiRoutes")(app);
+require("./app/Routing/htmlRoutes")(app);
 
 // =============================================================================
 // LISTENER

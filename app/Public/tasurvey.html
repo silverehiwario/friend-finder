@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Forms</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+</head>
+
+<body>
+ <div class="container">
+      <div class="navbar-header bg-primary" >
+        <div class="d-inline-flex p-2 "></div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr8NqMVVs4EF88_wz_hDnIJE4wweaw-c-WVoqAUQRHqysz7-9p" id = "finder">
+      </div>
+      <div class="collapse navbar-collapse text-success " id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right ">
+          <li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+          <li><a href="/signup"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>SignUp</a></li>
+          <li><a href="/page"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Login</a></li>  
+          </ul>
+      </div>
+    </div>
+   
+   <div class="container" id = "men1">
+    
+   <div class="row">
+   
+        <div class="col-md-4 col-sm-12 col-xs-12" >
+          
+           <div class="row">
+           <div class="col-md-12">
+            <form>
+              <div class="form-group">
+              <label for="exampleInputNumber">GROUPS OF : 4</label>
+               <h4 id = "group"></h4>
+             </div>
+             <div class="form-group">
+                <label for="exampleInputEmail1">Group Number</label>
+                <input type="number" class="form-control" id="exampleInputNumber1" aria-describedby="numberHelp"   placeholder="4">
+                 </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">FrontEnd: 2</label>
+                
+                 </div>
+                
+              <div class="form-group">
+                <label for="exampleInputEmail1">BackEnd: 1</label>
+                
+                 </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Both: 1</label>
+                
+                 </div>
+                <button type="submit"  id = "look" class="btn btn-primary">Submit</button>
+            </form>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-8 col-sm-12 col-xs-12" >
+        <p>  GROUP </p> <h4 id = "show">   </h4>
+        <h4 id = "show1">   </h4>
+
+        <h4 id = "show2">   </h4>
+    </div>
+
+      
+
+    </div>
+  </div>
+<div class="container" id= "yoga">
+ 
+ <footer>
+ <h6 class= "text-center"> @ copyright 2017 Silver Ehiwario </h6>
+</footer>
+ </div>
+    
+</body>
+</html>
+
+<script type="text/javascript">
+    
+      
+
+
+
+   $("#look").on("click", function(event) {
+      event.preventDefault();
+      // Here we grab the form elements
+      var newreq = {
+        GroupNum: parseInt($("#exampleInputNumber1").val().trim()),
+       
+        };
+      
+  if (newreq.GroupNum == NaN){
+    alert("Enter a Group Number") 
+  } else {
+
+        //module.exports = newreq;
+
+         $("#show").html(newreq.GroupNum);
+
+       
+       console.log(newreq);
+
+     
+       
+    
+      function runTableQuery2() {
+      // Here we get the location of the root page.
+      // We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
+      var currentURL = window.location.origin;
+      // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
+      $.ajax({ url: currentURL + "/api/tasurvey", method: "GET" })
+      .done(function(datareq) {
+        // Here we are logging the URL so we have access to it for troubleshooting
+        
+        if (datareq) {
+                    console.log(datareq);
+      for (var i = 0; i < datareq.table0.length; i++) {
+          // Create the HTML Well (Section) and Add the table content for each reserved table
+          var tableSection = $("<div>");
+          tableSection.addClass("well2");
+          tableSection.attr("id", "tableWell-");
+        $("#show1").append(tableSection);
+          var tableNumber = i + 1;
+          // Then display the remaining fields in the HTML (Section Name, Date, URL)
+          $("#tableWell-" ).append("<h2><span class='label label-primary'>" + tableNumber + "</span> | " + datareq.table0[i].Name + "</h2>");
+           }
+          for (var i = 0; i < datareq.table1.length; i++) {
+            var tableNumber = i + 2;
+
+           $("#tableWell-" ).append("<h2><span class='label label-primary'>" + tableNumber + "</span> | " + datareq.table1[i].Name + "</h2>");
+             }
+
+           for (var i = 0; i < datareq.table2.length; i++) {
+              var tableNumber = i + 4;
+
+           $("#tableWell-" ).append("<h2><span class='label label-primary'>" + tableNumber + "</span> | " + datareq.table2[i].Name + "</h2>");
+             }
+             
+
+
+
+            $("#show2").prepend('<button id="up">' + "YES" + '</button>');
+              
+
+             function hidden(){
+             $("#up").on("click", function(event) {
+         
+            $(".well").hide();
+
+             
+                 window.location.reload(true);
+
+       var newdelete = {
+         id1: parseInt(datareq.table0[0].id),
+         id2: parseInt(datareq.table1[0].id),
+         id3: parseInt(datareq.table1[1].id),
+         id4: parseInt(datareq.table2[0].id),
+           };
+           console.log(newdelete);
+
+
+
+                     $.post("/tasurvey", newdelete,
+                        function(datadelete) {
+                    // If a table is available... tell user they are booked.
+                      if (datadelete) {
+                        console.log(datadelete);
+                   alert("Next group");
+                        }else{"No More students"}
+
+                      });
+
+
+
+
+                        });
+                }
+
+                   hidden();  
+
+
+
+ 
+
+            
+
+        }
+
+        });
+
+
+        
+
+
+
+    }
+    runTableQuery2(); 
+
+
+                  $('#look').unbind('click');
+
+                }
+
+
+  });
+
+
+
+</script>
+      
+
+         
+          
+          
+
+          
+       
