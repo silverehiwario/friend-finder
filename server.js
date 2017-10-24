@@ -8,7 +8,7 @@ var app = express();
 // set port process.env for deploying to heroku
 var PORT = process.env.PORT || 3000;
 
-app.use(express.static(__dirname + 'app/public'));
+app.use(express.static(__dirname + 'app/Public'));
 
 // bodyParser helps our server to understand data sent to it
 app.use(bodyParser.json());
