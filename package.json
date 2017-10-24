@@ -1,24 +1,30 @@
 {
   "name": "friend-finder",
   "version": "1.0.0",
-  "description": "Node application for finding friends whose interests are similar to the user's.",
-  "main": "index.js",
+  "description": "friend-finder",
+  "main": "server.js",
+  "dependencies": {
+    "async": "^2.5.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "global": "^4.3.2",
+    "mysql": "^2.14.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/silverehiwario/friend-finder.git"
   },
-  "author": "Silver Ehiwario",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/silverehiwario/friend-finder/issues"
   },
-  "homepage": "https://github.com/silverehiwario/friend-finder#readme",
-  "dependencies": {
-    "body-parser": "^1.18.2",
-    "express": "^4.15.5",
-    "express-handlebars": "^3.0.0"
-  }
+  "homepage": "https://github.com/silverehiwario/friend-finder#readme"
 }
